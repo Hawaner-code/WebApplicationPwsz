@@ -1,0 +1,538 @@
+﻿<!--<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <!-- Latest compiled and minified CSS -->
+<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">-->
+<!-- Optional theme -->
+<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">-->
+<!-- Latest compiled and minified JavaScript -->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>-->
+@**@
+<!--<script src="~/admin-lte/js/pages/dashboard.js"></script>
+    <link href="~/admin-lte/css/AdminLTE.css" rel="stylesheet" />
+    <script src="~/admin-lte/js/adminlte.js"></script>
+    <link href="~/admin-lte/css/alt/AdminLTE-bootstrap-social.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <nav class="navbar navbar navbar-dark bg-dark">
+
+        <div class="d-flex justify-content-start">
+            <a class="navbar-brand" href="#">Aplikacja Społecznościowa</a>
+
+            <form>
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" id="login" class="form-control" placeholder="Login">
+                    </div>
+                    <div class="col">
+
+
+                        <input type="text" id="haslo" class="form-control" placeholder="Hasło">
+                    </div>
+                </div>
+            </form>
+            <button type="button" id="sendlogin" class="btn btn-outline-info ml-2">Zaloguj</button>
+        </div>
+
+        <div class="d-flex justify-content-center">
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-outline-warning mr-2" onclick="location.href='@Url.Action("Register", "Register")'">Rejestracja</button>
+
+            <form>
+                <div>
+                    <div class="form-row  ">
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="E-mail">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Login">
+                        </div>
+                        <div class="col">
+
+                            <div class="form-row">
+                                <input type="password" class="form-control" placeholder="Hasło">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>-->
+@* @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+@*
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li>@Html.ActionLink("About", "About", "Home")</li>
+    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@-->
+
+
+<!-- /.username -->
+<!--The point of using Lorem Ipsum is that it has a more-or-less
+    normal distribution of letters, as opposed to using
+    'Content here, content here', making it look like readable English.
+</div>-->
+<!-- /.comment-text -->
+<!--</div>-->
+<!-- /.box-comment -->
+<!--</div>-->
+<!-- /.box-footer -->
+<!--<div class="box-footer">
+    <form action="#" method="post">
+        <img class="img-responsive img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="Alt Text">-->
+<!-- .img-push is used to add margin to elements next to floating images -->
+<!--<div class="img-push">
+            <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
+        </div>
+    </form>
+</div>-->
+<!-- /.box-footer -->
+<!--</div>-->
+<!-- /.box -->
+<!--<div class="container body-content">
+    RenderBody()
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Michał Bogacz | Maciej Kleban</p>
+    </footer>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+<script>
+$(document).ready(function () {
+
+
+    $("#sendlogin").click(function () {
+
+        let login = $("#login").val();
+        let haslo = $("#haslo").val();
+
+        $.ajax({
+
+            url: '@Url.Action("TestLogin", "Register")?login=' + login + '&haslo=' + haslo,
+
+
+            //type: 'POST',
+            //data: formdata,
+              //done(function (r) {
+              //    console.log("second success");
+              //})
+              //  .fail(function () {
+              //      console.log("error");
+              //  })
+              //  .always(function () {
+              //      console.log("complete");
+              //  }),
+            sucess: function (data) {
+                alert(data.Message);
+                alert(data);
+                $("#imie").val(data.imie);
+                $("#rr").html(data.Message);
+            }
+
+        })
+    });
+});
+</script>-->
+
+
+<!-- /.comment-text -->
+<!--</div>-->
+<!-- /.box-comment -->
+<!--</div>-->
+<!-- /.box-footer -->
+<!--<div class="box-footer">
+    <form action="#" method="post">
+        <img class="img-responsive img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="Alt Text">-->
+<!-- .img-push is used to add margin to elements next to floating images -->
+<!--<div class="img-push">
+            <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
+        </div>
+    </form>
+</div>-->
+<!-- /.box-footer -->
+<!--</div>-->
+<!-- /.box -->
+<!--</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 3 | Dashboard</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/admin-lte/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="~/admin-lte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="~/admin-lte/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/admin-lte/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="~/admin-lte/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/admin-lte/plugins/summernote/summernote-bs4.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        @RenderBody()
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="index3.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Contact</a>
+                </li>
+            </ul>
+
+            <!-- SEARCH FORM -->
+            <form class="form-inline ml-3">
+                <div class="input-group input-group-sm">
+                    <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-navbar" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Messages Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-comments"></i>
+                        <span class="badge badge-danger navbar-badge">3</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <a href="#" class="dropdown-item">
+                            <!-- Message Start -->
+                            <div class="media">
+                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        Brad Diesel
+                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">Call me whenever you can...</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <!-- Message Start -->
+                            <div class="media">
+                                <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        John Pierce
+                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">I got your message bro</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <!-- Message Start -->
+                            <div class="media">
+                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        Nora Silvester
+                                        <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">The subject goes here</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                    </div>
+                </li>
+                <!-- Notifications Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-bell"></i>
+                        <span class="badge badge-warning navbar-badge">15</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <span class="dropdown-item dropdown-header">15 Notifications</span>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-envelope mr-2"></i> 4 new messages
+                            <span class="float-right text-muted text-sm">3 mins</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-users mr-2"></i> 8 friend requests
+                            <span class="float-right text-muted text-sm">12 hours</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-file mr-2"></i> 3 new reports
+                            <span class="float-right text-muted text-sm">2 days</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                        <i class="fas fa-th-large"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title">General Elements</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form role="form">
+
+
+                    <!-- textarea -->
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3" id="ContentPost" placeholder="Co u Ciebie słychać?"></textarea>
+                    </div> <div class="form-group">
+    <button type="submit" id="SendPost" class="btn btn-info pull-right">Wyślij</button>
+
+</div>
+
+
+
+
+                </form>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <div>
+            <div class="col-md-6">
+                <!-- Box Comment -->
+                <div class="box box-widget">
+                    <div class="box-header with-border">
+                        <div class="user-block">
+                            <img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Image">
+                            <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
+                            <span class="description">Shared publicly - 7:30 PM Today</span>
+                        </div>
+                        <!-- /.user-block -->
+                        <div class="box-tools">
+                            <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
+                                <i class="fa fa-circle-o"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <!-- post text -->
+                        <p>
+                            Far far away, behind the word mountains, far from the
+                            countries Vokalia and Consonantia, there live the blind
+                            texts. Separated they live in Bookmarksgrove right at
+                        </p>
+
+                        <p>
+                            the coast of the Semantics, a large language ocean.
+                            A small river named Duden flows by their place and supplies
+                            it with the necessary regelialia. It is a paradisematic
+                            country, in which roasted parts of sentences fly into
+                            your mouth.
+                        </p>
+
+                        <!-- Attachment -->
+                        <div class="attachment-block clearfix">
+                            <img class="attachment-img" src="../dist/img/photo1.png" alt="Attachment Image">
+
+                            <div class="attachment-pushed">
+                                <h4 class="attachment-heading"><a href="http://www.lipsum.com/">Lorem ipsum text generator</a></h4>
+
+                                <div class="attachment-text">
+                                    Description about the attachment can be placed here.
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
+                                </div>
+                                <!-- /.attachment-text -->
+                            </div>
+                            <!-- /.attachment-pushed -->
+                        </div>
+                        <!-- /.attachment-block -->
+                        <!-- Social sharing buttons -->
+                        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
+                        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                        <span class="pull-right text-muted">45 likes - 2 comments</span>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer box-comments">
+                        <div class="box-comment">
+                            <!-- User image -->
+                            <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
+
+                            <div class="comment-text">
+                                <span class="username">
+                                    Maria Gonzales
+                                    <span class="text-muted pull-right">8:03 PM Today</span>
+                                </span><!-- /.username -->
+                                It is a long established fact that a reader will be distracted
+                                by the readable content of a page when looking at its layout.
+                            </div>
+                            <!-- /.comment-text -->
+                        </div>
+                        <!-- /.box-comment -->
+                        <div class="box-comment">
+                            <!-- User image -->
+                            <img class="img-circle img-sm" src="../dist/img/user5-128x128.jpg" alt="User Image">
+
+                            <div class="comment-text">
+                                <span class="username">
+                                    Nora Havisham
+                                    <span class="text-muted pull-right">8:03 PM Today</span>
+                                </span><!-- /.username -->
+                                The point of using Lorem Ipsum is that it has a more-or-less
+                                normal distribution of letters, as opposed to using
+                                'Content here, content here', making it look like readable English.
+                            </div>
+                            <!-- /.comment-text -->
+                        </div>
+                        <!-- /.box-comment -->
+                    </div>
+                    <!-- /.box-footer -->
+                    <div class="box-footer">
+                        <form action="#" method="post">
+                            <img class="img-responsive img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="Alt Text">
+                            <!-- .img-push is used to add margin to elements next to floating images -->
+                            <div class="img-push">
+                                <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.box-footer -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+
+
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+    $(document).ready(function () {
+       
+
+        $("#SendPost").click(function () {
+
+          
+            let Content = $("#ContentPost").val();
+            $.ajax({
+
+                url: '@Url.Action("SavePost", "Post")?content=' + Content,
+
+                //type: 'POST',
+                //data: formdata,
+                  //done(function (r) {
+                  //    console.log("second success");
+                  //})
+                  //  .fail(function () {
+                  //      console.log("error");
+                  //  })
+                  //  .always(function () {
+                  //      console.log("complete");
+                  //  }),
+                sucess: function (data) {
+                    alert(data.Message);
+                    alert(data);
+                    $("#imie").val(data.imie);
+                    $("#rr").html(data.Message);
+                }
+
+            })
+        });
+    });
+    </script>
+    <!-- ./wrapper -->
+    <!-- jQuery -->
+    <script src="~/admin-lte/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/admin-lte/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="~/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/admin-lte/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="~/admin-lte/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="~/admin-lte/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/admin-lte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="~/admin-lte/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="~/admin-lte/plugins/moment/moment.min.js"></script>
+    <script src="~/admin-lte/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="~/admin-lte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/admin-lte/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/admin-lte/dist/js/adminlte.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="~/admin-lte/dist/js/pages/dashboard.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/admin-lte/dist/js/demo.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,164 @@
+﻿
+
+@model WebApplicationPwsz.Models.users
+
+
+@{
+    ViewBag.Title = "Rejestracja";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+    <div class="form-horizontal">
+        <h4>Rejestracja pełna</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <p class="control-label col-md-2">Imię</p>
+
+            <div class="col-md-10">
+                <input type="text" id="imie" class="form-control" />
+                @*  @Html.EditorFor(model => model.imie, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.imie, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">Nazwisko</p>
+
+            <div class="col-md-10">
+
+                <input type="text" id="nazwisko" class="form-control" />
+
+                @* @Html.EditorFor(model => model.nazwisko, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.nazwisko, "", new { @class = "text-danger", @id = "fdfs" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">Data urodzenia</p>
+            
+            <div class="col-md-10">
+                <input type="text" id="Dataurodzenia" class="form-control" />
+                @*    @Html.EditorFor(model => model.data_urodzenia, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.data_urodzenia, "", new { @class = "text-danger" })*@
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="control-label col-md-2">Miejscowość</p>
+
+        <div class="col-md-10">
+            <input type="text" id="Miejscowosc" class="form-control" />
+            @*     @Html.EditorFor(model => model.miejscowosc, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.miejscowosc, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <p class="control-label col-md-2">Płeć</p>
+        <div class="col-md-10">
+            <select id ="plec" class="custom-select">
+                <option selected>Wybierz...</option>
+                <option value="1">Mężczyzna</option>
+                <option value="2">Kobieta</option>
+
+
+
+            </select>
+
+
+        </div>
+
+        @*  @Html.EditorFor(model => model.plec, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.plec, "", new { @class = "text-danger" })*@
+    </div>
+
+
+    <div class="form-group">
+        <p class="control-label col-md-2">Login</p>
+
+        <div class="col-md-10">
+            <input type="text" id="login" class="form-control" />
+            @*  @Html.EditorFor(model => model.login, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.login, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="control-label col-md-2">E-mail</p>
+
+        <div class="col-md-10">
+            <input type="text" id="email" class="form-control" />
+            @*       @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+
+    <form>
+        <div class="form-group">
+            <label for="exampleFormControlFile1">Dodaj zdjęcie</label>
+            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        </div>
+    </form>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" id="send" class="btn btn-success">Wprowadź informacje do profilu</button>
+            <button type="button"id="zz" class="btn btn-danger">Nie chcę podawać pełnych danych</button>
+        </div>
+    </div>
+    <div id="rr" class="col-md-10">
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#zz").click(function () {
+            alert("Handler for .click() called.");
+        });
+
+        $("#send").click(function () {
+            
+            let imie = $("#imie").val();
+            let nazwisko = $("#nazwisko").val();
+            let Dataurodzenia = $("#Dataurodzenia").val();
+            let Miejscowosc = $("#Miejscowosc").val();
+            let plec = $("#plec").val();
+            let login = $("#login").val();
+            let email = $("#email").val();
+            $.ajax({
+
+                url: '@Url.Action("TestReg", "Register")?imie=' + imie + '&nazwisko=' + nazwisko + '&dataurodzenia=' + Dataurodzenia + '&Miejscowosc=' + Miejscowosc + '&plec=' + plec + '&login=' + login + '&email=' + email,
+
+
+                //type: 'POST',
+                //data: formdata,
+                  //done(function (r) {
+                  //    console.log("second success");
+                  //})
+                  //  .fail(function () {
+                  //      console.log("error");
+                  //  })
+                  //  .always(function () {
+                  //      console.log("complete");
+                  //  }),
+                sucess: function (data) {
+                    alert(data.Message);
+                    alert(data);
+                    $("#imie").val(data.imie);
+                    $("#rr").html(data.Message);
+                }
+
+            })
+        });
+    });
+</script>
