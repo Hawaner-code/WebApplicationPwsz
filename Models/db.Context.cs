@@ -27,9 +27,9 @@ namespace WebApplicationPwsz.Models
     
         public virtual DbSet<users> users { get; set; }
         public virtual DbSet<users1> users1 { get; set; }
-        public virtual DbSet<Comments> Comments { get; set; }
         public virtual DbSet<Images> Images { get; set; }
-        public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Comments> Comments { get; set; }
+        public virtual DbSet<Post> Post { get; set; }
     }
 }

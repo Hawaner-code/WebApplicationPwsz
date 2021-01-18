@@ -15,6 +15,8 @@
           <Property Name="content" Type="text" />
           <Property Name="parent" Type="int" />
           <Property Name="likes" Type="int" />
+          <Property Name="postIdTrue" Type="int" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Images">
           <Key>
@@ -85,15 +87,15 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
           <Property Name="data_urodzenia" Type="date" />
           <Property Name="login_flag" Type="bit" />
         </EntityType>
-        <Association Name="FK_Post_Comments">
-          <End Role="Comments" Type="Self.Comments" Multiplicity="0..1" />
-          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+        <Association Name="FK_Comments_Post1">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Comments">
+            <Principal Role="Post">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Post">
-              <PropertyRef Name="commentId" />
+            <Dependent Role="Comments">
+              <PropertyRef Name="postIdTrue" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -118,9 +120,9 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
     [users].[login_flag] AS [login_flag]
     FROM [dbo].[users] AS [users]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_Post_Comments" Association="Self.FK_Post_Comments">
-            <End Role="Comments" EntitySet="Comments" />
+          <AssociationSet Name="FK_Comments_Post1" Association="Self.FK_Comments_Post1">
             <End Role="Post" EntitySet="Post" />
+            <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -146,13 +148,13 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
         <EntityContainer Name="DbUsersEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="users" EntityType="Self.users" />
           <EntitySet Name="users1" EntityType="DbUsersModel.users1" />
-          <EntitySet Name="Comments" EntityType="DbUsersModel.Comments" />
           <EntitySet Name="Images" EntityType="DbUsersModel.Images" />
-          <EntitySet Name="Post" EntityType="DbUsersModel.Post" />
           <EntitySet Name="sysdiagrams" EntityType="DbUsersModel.sysdiagrams" />
-          <AssociationSet Name="FK_Post_Comments" Association="DbUsersModel.FK_Post_Comments">
-            <End Role="Comments" EntitySet="Comments" />
+          <EntitySet Name="Comments" EntityType="DbUsersModel.Comments" />
+          <EntitySet Name="Post" EntityType="DbUsersModel.Post" />
+          <AssociationSet Name="FK_Comments_Post1" Association="DbUsersModel.FK_Comments_Post1">
             <End Role="Post" EntitySet="Post" />
+            <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="users1">
@@ -171,18 +173,6 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
           <Property Name="data_urodzenia" Type="DateTime" Precision="0" />
           <Property Name="login_flag" Type="Boolean" />
         </EntityType>
-        <EntityType Name="Comments">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="postId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="createDate" Type="DateTime" Precision="3" />
-          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="parent" Type="Int32" />
-          <Property Name="likes" Type="Int32" />
-          <NavigationProperty Name="Post" Relationship="DbUsersModel.FK_Post_Comments" FromRole="Comments" ToRole="Post" />
-        </EntityType>
         <EntityType Name="Images">
           <Key>
             <PropertyRef Name="id" />
@@ -193,6 +183,30 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
           <Property Name="content" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="size" Type="Int32" />
           <Property Name="typeFile" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="postId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createDate" Type="DateTime" Precision="3" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="parent" Type="Int32" />
+          <Property Name="likes" Type="Int32" />
+          <Property Name="postIdTrue" Type="Int32" />
+          <NavigationProperty Name="Post" Relationship="DbUsersModel.FK_Comments_Post1" FromRole="Comments" ToRole="Post" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -207,27 +221,17 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
           <Property Name="commentCount" Type="Int32" />
           <Property Name="commentId" Type="Int32" />
           <Property Name="imageId" Type="Int32" />
-          <NavigationProperty Name="Comments" Relationship="DbUsersModel.FK_Post_Comments" FromRole="Post" ToRole="Comments" />
+          <NavigationProperty Name="Comments" Relationship="DbUsersModel.FK_Comments_Post1" FromRole="Post" ToRole="Comments" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <Association Name="FK_Post_Comments">
-          <End Type="DbUsersModel.Comments" Role="Comments" Multiplicity="0..1" />
-          <End Type="DbUsersModel.Post" Role="Post" Multiplicity="*" />
+        <Association Name="FK_Comments_Post1">
+          <End Type="DbUsersModel.Post" Role="Post" Multiplicity="0..1" />
+          <End Type="DbUsersModel.Comments" Role="Comments" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Comments">
+            <Principal Role="Post">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Post">
-              <PropertyRef Name="commentId" />
+            <Dependent Role="Comments">
+              <PropertyRef Name="postIdTrue" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -271,18 +275,6 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Comments">
-            <EntityTypeMapping TypeName="DbUsersModel.Comments">
-              <MappingFragment StoreEntitySet="Comments">
-                <ScalarProperty Name="likes" ColumnName="likes" />
-                <ScalarProperty Name="parent" ColumnName="parent" />
-                <ScalarProperty Name="content" ColumnName="content" />
-                <ScalarProperty Name="createDate" ColumnName="createDate" />
-                <ScalarProperty Name="postId" ColumnName="postId" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Images">
             <EntityTypeMapping TypeName="DbUsersModel.Images">
               <MappingFragment StoreEntitySet="Images">
@@ -291,6 +283,31 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
                 <ScalarProperty Name="content" ColumnName="content" />
                 <ScalarProperty Name="createDate" ColumnName="createDate" />
                 <ScalarProperty Name="namePic" ColumnName="namePic" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DbUsersModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="DbUsersModel.Comments">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="postIdTrue" ColumnName="postIdTrue" />
+                <ScalarProperty Name="likes" ColumnName="likes" />
+                <ScalarProperty Name="parent" ColumnName="parent" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="createDate" ColumnName="createDate" />
+                <ScalarProperty Name="postId" ColumnName="postId" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -307,17 +324,6 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
                 <ScalarProperty Name="createDate" ColumnName="createDate" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="DbUsersModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

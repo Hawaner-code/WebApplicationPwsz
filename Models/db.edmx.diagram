@@ -7,11 +7,11 @@
       <Diagram DiagramId="86737e692d424542a262321d4d497d24" Name="Diagram1">
         <EntityTypeShape EntityType="DbUsersModel.users" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DbUsersModel.users1" Width="1.5" PointX="3.375" PointY="0.75" />
-        <EntityTypeShape EntityType="DbUsersModel.Comments" Width="1.5" PointX="0.75" PointY="5.25" />
         <EntityTypeShape EntityType="DbUsersModel.Images" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DbUsersModel.Post" Width="1.5" PointX="3" PointY="5" />
         <EntityTypeShape EntityType="DbUsersModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="3.75" />
-        <AssociationConnector Association="DbUsersModel.FK_Post_Comments" />
+        <EntityTypeShape EntityType="DbUsersModel.Comments" Width="1.5" PointX="3" PointY="7.125" />
+        <EntityTypeShape EntityType="DbUsersModel.Post" Width="1.5" PointX="0.75" PointY="7" />
+        <AssociationConnector Association="DbUsersModel.FK_Comments_Post1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplicationPwsz.Models;
+using WebApplicationPwsz.Models.Models;
 
 namespace WebApplicationPwsz.Controllers
 {
@@ -13,6 +14,11 @@ namespace WebApplicationPwsz.Controllers
     {
         // GET: Register
         public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult PasekGora()
+
         {
             return View();
         }
@@ -58,7 +64,34 @@ namespace WebApplicationPwsz.Controllers
 
 
 
+        [HttpPost]
+        public ActionResult Login(string login,string password)
+        {
+                using (var db = new DbUsersEntities())
+            {
+                if (login != null&& password != null)
+                {
+                    //var usesr = db.users1.ToList();
+                     var user = db.users1.FirstOrDefault(x => x.login == login && x.haslo == password);
 
+                    Session["Users"] = user;
+
+                    if (user != null)
+                    {
+                        return RedirectToAction("Index","Post");// View("~/Views/Post/index.cshtml", post);
+                    }
+                    else return Json("nie rafdfsf", JsonRequestBehavior.AllowGet);
+                    return View();
+                }
+
+                else { ViewData["err"] = "nie poprawny login lub hasło";
+                    return View();
+                }
+
+
+            }
+
+        }
 
 
         public ActionResult TestReg(string imie, string nazwisko, string  Dataurodzenia,  string Miejscowosc, bool? plec,  string login,  string email)

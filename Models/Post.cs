@@ -14,6 +14,12 @@ namespace WebApplicationPwsz.Models
     
     public partial class Post
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Post()
+        {
+            this.Comments = new HashSet<Comments>();
+        }
+    
         public int id { get; set; }
         public string title { get; set; }
         public Nullable<System.DateTime> createDate { get; set; }
@@ -24,6 +30,7 @@ namespace WebApplicationPwsz.Models
         public Nullable<int> commentId { get; set; }
         public Nullable<int> imageId { get; set; }
     
-        public virtual Comments Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comments> Comments { get; set; }
     }
 }

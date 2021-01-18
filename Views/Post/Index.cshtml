@@ -1,7 +1,74 @@
-﻿
+﻿@model WebApplicationPwsz.Models.Models.PostsViewModel
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @* Layout = null;*@
 }
 
+@if (Session["Users"] != null)
+{
+    <div class="box box-warning">
+        <div class="box-header with-border">
+            <h3 class="box-title">General Elements</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <form role="form">
+                <!-- textarea -->
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" id="ContentPost"></textarea>
+                </div> <div class="form-group">
+                    <button type="submit" id="SendPost" class="btn btn-info pull-right">Wyślij</button>
+
+                </div>
 
 
+
+
+            </form>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    foreach (var item in Model?.posts)
+    {
+        Html.RenderPartial("Posts", item);
+    }
+
+    <script src="~/admin-lte/build/js/AdminLTE.js"></script>
+    <link href="~/admin-lte/css/AdminLTE.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+}
+
+<script>
+    $(document).ready(function () {
+
+
+        $("#SendPost").click(function () {
+
+
+            let Content = $("#ContentPost").val();
+            $.ajax({
+
+                url: '@Url.Action("SavePost", "Post")?content=' + Content,
+
+                //type: 'POST',
+                //data: formdata,
+                  //done(function (r) {
+                  //    console.log("second success");
+                  //})
+                  //  .fail(function () {
+                  //      console.log("error");
+                  //  })
+                  //  .always(function () {
+                  //      console.log("complete");
+                  //  }),
+                sucess: function (data) {
+                    alert(data.Message);
+                    alert(data);
+                    $("#imie").val(data.imie);
+                    $("#rr").html(data.Message);
+                }
+
+            })
+        });
+    });
+</script>

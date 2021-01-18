@@ -1,0 +1,122 @@
+﻿@model WebApplicationPwsz.Models.Post
+@{ string l = "Like" + Model.id;
+    string c = "Comment" + Model.id;
+    string ctext = "Commenttext" + Model.id;
+}
+<div>
+    <div class="col-md-6">
+        <!-- Box Comment -->
+        <div class="box box-widget">
+            <div class="box-header with-border">
+                <div class="user-block">
+                    @*<img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Image">*@
+                    <span class="username"><a href="#">@Model.title</a></span>
+                    <span class="description">Data publikacji:  @Model.createDate.Value.ToString()@*("MM.dd.yyyy H:mm"*@  </span>
+                </div>
+
+                <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <!-- post text -->
+                <p>
+                    @Html.Label(Model.content)
+                </p>
+
+
+
+                <!-- Attachment -->
+                <!--<div class="attachment-block clearfix">-->
+                    @*  <img class="attachment-img" src="../dist/img/photo1.png" alt="Attachment Image">*@
+
+                    <!--<div class="attachment-pushed">
+                        <h4 class="attachment-heading"><a href="http://www.lipsum.com/">Lorem ipsum text generator</a></h4>
+
+                        <div class="attachment-text">
+                            Description about the attachment can be placed here.
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
+                        </div>-->
+                        <!-- /.attachment-text -->
+                    <!--</div>-->
+                    <!-- /.attachment-pushed -->
+                <!--</div>-->
+                <!-- /.attachment-block -->
+                <!-- Social sharing buttons -->
+
+                <button type="button" id="@l" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                <span class="pull-right text-muted">@Model.likes likes - @Model.Comments.Count comments</span>
+            </div>
+            @foreach (var item in Model.Comments)
+            {
+                <!-- /.box-body -->
+                <div class="box-footer box-comments">
+                    <div class="box-comment">
+                        <!-- User image -->
+                        @*<img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">*@
+
+                        <div class="comment-text">
+                            <span class="username">
+                               @item.username
+                                <span class="text-muted pull-right">@item.createDate</span>
+                            </span><!-- /.username -->
+                            @item.content
+                        </div>
+                        <!-- /.comment-text -->
+                    </div>
+                    <!-- /.box-comment -->
+                   
+                </div>
+            }
+
+            <!-- /.box-footer -->
+            <div class="box-footer">
+                <form action="" method="post">
+                    @*<img class="img-responsive img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="Alt Text">*@
+                    <!-- .img-push is used to add margin to elements next to floating images -->
+                    <div class="img-push">
+                        <input type="text" id="@ctext" class="form-control input-sm" placeholder="Press enter to post comment">
+
+                    </div>
+                    <button type="button" id="@c" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                </form>
+            </div>
+            <!-- /.box-footer -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+<script src="~/admin-lte/plugins/jquery/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#@c').click(function (event) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Comment", "Post")",
+                data: JSON.stringify({ idPost: @Model.id , text: $("#@ctext").val() }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                //success: function (data) { alert(data.responseText); },
+                //error: function (errMsg) {
+                //    alert(errMsg.responseText);
+                //}
+            });
+        });
+
+        $('#@l').click(function (event) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Like", "Post")",
+                // The key needs to match your method's input parameter (case-sensitive).
+                data: JSON.stringify({idPost: @Model.id  }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+               // success: function (data) { alert(data.responseText); },
+                //error: function (errMsg) {
+                //    alert(errMsg.responseText);
+                //}
+            });
+        });
+    });
+</script>

@@ -14,20 +14,15 @@ namespace WebApplicationPwsz.Models
     
     public partial class Comments
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Comments()
-        {
-            this.Post = new HashSet<Post>();
-        }
-    
         public int id { get; set; }
         public string postId { get; set; }
         public Nullable<System.DateTime> createDate { get; set; }
         public string content { get; set; }
         public Nullable<int> parent { get; set; }
         public Nullable<int> likes { get; set; }
+        public Nullable<int> postIdTrue { get; set; }
+        public string username { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Post> Post { get; set; }
+        public virtual Post Post { get; set; }
     }
 }
