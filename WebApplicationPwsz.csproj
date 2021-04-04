@@ -141,9 +141,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Classes\Posts.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\TopBarController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -165,10 +167,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>db.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Friends.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Images.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Models\LoginViewModel.cs" />
+    <Compile Include="Models\Models\MainPageViewModel.cs" />
     <Compile Include="Models\Models\PostsViewModel.cs" />
     <Compile Include="Models\Post.cs">
       <DependentUpon>db.tt</DependentUpon>
@@ -2402,6 +2408,12 @@
     <Content Include="Views\Register\dada.cshtml" />
     <Content Include="Views\Register\Login.cshtml" />
     <Content Include="Views\Register\PasekGora.cshtml" />
+    <Content Include="Views\TopBar\Panel.cshtml" />
+    <Content Include="Views\TopBar\PanelZew.cshtml" />
+    <Content Include="Views\TopBar\Tablica.cshtml" />
+    <Content Include="Views\TopBar\TopBar.cshtml" />
+    <Content Include="Views\Post\MainPostPage.cshtml" />
+    <Content Include="Views\Post\FrendsListPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

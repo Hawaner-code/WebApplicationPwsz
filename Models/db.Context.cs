@@ -31,5 +31,6 @@ namespace WebApplicationPwsz.Models
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Comments> Comments { get; set; }
         public virtual DbSet<Post> Post { get; set; }
+        public virtual DbSet<Friends> Friends { get; set; }
     }
 }

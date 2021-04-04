@@ -64,20 +64,20 @@ namespace WebApplicationPwsz.Controllers
 
 
 
-        [HttpPost]
+       
         public ActionResult Login(string login,string password)
         {
                 using (var db = new DbUsersEntities())
             {
                 if (login != null&& password != null)
                 {
-                    //var usesr = db.users1.ToList();
                      var user = db.users1.FirstOrDefault(x => x.login == login && x.haslo == password);
-
-                    Session["Users"] = user;
-
+                   
                     if (user != null)
                     {
+                        Session["Users"] = user;
+                        Session["UserName"] = user.imie+" "+ user.nazwisko;
+                        Session["TopBar"] = 2;
                         return RedirectToAction("Index","Post");// View("~/Views/Post/index.cshtml", post);
                     }
                     else return Json("nie rafdfsf", JsonRequestBehavior.AllowGet);

@@ -14,6 +14,12 @@ namespace WebApplicationPwsz.Models
     
     public partial class users1
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public users1()
+        {
+            this.Friends = new HashSet<Friends>();
+        }
+    
         public int id { get; set; }
         public string imie { get; set; }
         public string nazwisko { get; set; }
@@ -25,5 +31,9 @@ namespace WebApplicationPwsz.Models
         public string haslo { get; set; }
         public Nullable<System.DateTime> data_urodzenia { get; set; }
         public Nullable<bool> login_flag { get; set; }
+        public Nullable<int> idFriends { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Friends> Friends { get; set; }
     }
 }

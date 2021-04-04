@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using WebApplicationPwsz.Models;
 using WebApplicationPwsz.Models.Models;
 using System.Data.Entity;
+using WebApplicationPwsz.Classes;
+
 namespace WebApplicationPwsz.Controllers
 {
     public class PostController : Controller
@@ -15,13 +17,11 @@ namespace WebApplicationPwsz.Controllers
         {
             using (var db = new DbUsersEntities())
             {
-                //  var u = (users1)Session["Users"];
-                var post = db.Post.Include(x => x.Comments).ToList();
-                PostsViewModel posts = new PostsViewModel();
-                posts.posts.AddRange(post);//zrobic wyswietlanie
-                return View(posts);
+                Posts posts = new Posts();
+            posts.SessionUser=(users1)Session["Users"];
+                Session["TopBar"] = 2;
+                return View(posts.GetPosts());
             }
-
         }
         public ActionResult Like(int idPost)
         {
@@ -40,6 +40,36 @@ namespace WebApplicationPwsz.Controllers
                 db.SaveChanges();
 
                 return View();
+            }
+
+        }
+        public ActionResult AddFriends(int idFriends)
+        {
+            using (var db = new DbUsersEntities())
+            {
+                  var u = (users1)Session["Users"];
+                db.Friends.Add(new Friends { idFriends = idFriends ,id=u.id});
+                
+                db.SaveChanges();
+
+                return View();
+            }
+
+        }  public ActionResult FrendsListPage()
+        {
+            using (var db = new DbUsersEntities())
+            {
+                //  var u = (users1)Session["Users"];
+                //db.Friends.Add(new Friends { idFriends = idFriends ,id=u.id});
+
+                //db.SaveChanges();
+                Posts posts = new Posts();
+                posts.SessionUser = (users1)Session["Users"];
+                Session["TopBar"] = 2;
+                var a = posts.GetFriends(/*posts.SessionUser.id*/1);
+                MainPageViewModel mainPageViewModel = new MainPageViewModel();
+                mainPageViewModel.Frends = a;
+                return View(mainPageViewModel);
             }
 
         }
@@ -72,35 +102,10 @@ namespace WebApplicationPwsz.Controllers
 
         public ActionResult SavePost(string content)
         {
-            using (var db = new DbUsersEntities())
-            {
-                var u = (users1)Session["Users"];
-                //var u = db.users1.First();
-                db.Post.Add(new Post
-                {
-                    content = content,
-                    title = u.imie + " " + u.nazwisko,
-                    createDate = DateTime.Now
+            Posts posts = new Posts();
+            posts.SessionUser=(users1)Session["Users"];
+            posts.AddPorst(content);
 
-                });
-                db.SaveChanges();
-
-                //Store the products to a session
-
-                //   Session["Users"] = user;
-
-                //To get what you have stored to a session
-
-                //var products = Session["products"] as List<Product>;
-
-                // to clear the session value
-
-                //Session["products"] = null;
-
-                return View();
-
-                // else return Json("nie rafdfsf", JsonRequestBehavior.AllowGet);
-            }
             return View();
         }
     }

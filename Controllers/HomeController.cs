@@ -10,6 +10,7 @@ namespace WebApplicationPwsz.Controllers
     {
         public ActionResult Index()
         {
+            Session["TopBar"] = 1;
             return View();
         }
 

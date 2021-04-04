@@ -12,6 +12,8 @@
         <EntityTypeShape EntityType="DbUsersModel.Comments" Width="1.5" PointX="3" PointY="7.125" />
         <EntityTypeShape EntityType="DbUsersModel.Post" Width="1.5" PointX="0.75" PointY="7" />
         <AssociationConnector Association="DbUsersModel.FK_Comments_Post1" />
+        <EntityTypeShape EntityType="DbUsersModel.Friends" Width="1.5" PointX="5.625" PointY="6.75" />
+        <AssociationConnector Association="DbUsersModel.FK_Friends_users1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,6 +18,14 @@
           <Property Name="postIdTrue" Type="int" />
           <Property Name="username" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Friends">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idFriends" Type="int" />
+          <Property Name="idUser" Type="int" />
+        </EntityType>
         <EntityType Name="Images">
           <Key>
             <PropertyRef Name="id" />
@@ -86,6 +94,7 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
           <Property Name="haslo" Type="nvarchar(max)" />
           <Property Name="data_urodzenia" Type="date" />
           <Property Name="login_flag" Type="bit" />
+          <Property Name="idFriends" Type="int" />
         </EntityType>
         <Association Name="FK_Comments_Post1">
           <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
@@ -99,8 +108,21 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Friends_users1">
+          <End Role="users1" Type="Self.users1" Multiplicity="0..1" />
+          <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Friends">
+              <PropertyRef Name="idFriends" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DbUsersModelStoreContainer">
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Friends" EntityType="Self.Friends" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -123,6 +145,10 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
           <AssociationSet Name="FK_Comments_Post1" Association="Self.FK_Comments_Post1">
             <End Role="Post" EntitySet="Post" />
             <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Friends_users1" Association="Self.FK_Friends_users1">
+            <End Role="users1" EntitySet="users1" />
+            <End Role="Friends" EntitySet="Friends" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -156,6 +182,11 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
             <End Role="Post" EntitySet="Post" />
             <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
+          <EntitySet Name="Friends" EntityType="DbUsersModel.Friends" />
+          <AssociationSet Name="FK_Friends_users1" Association="DbUsersModel.FK_Friends_users1">
+            <End Role="users1" EntitySet="users1" />
+            <End Role="Friends" EntitySet="Friends" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="users1">
           <Key>
@@ -172,6 +203,8 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
           <Property Name="haslo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="data_urodzenia" Type="DateTime" Precision="0" />
           <Property Name="login_flag" Type="Boolean" />
+          <Property Name="idFriends" Type="Int32" />
+          <NavigationProperty Name="Friends" Relationship="DbUsersModel.FK_Friends_users1" FromRole="users1" ToRole="Friends" />
         </EntityType>
         <EntityType Name="Images">
           <Key>
@@ -235,6 +268,27 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Friends">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idFriends" Type="Int32" />
+          <NavigationProperty Name="users1" Relationship="DbUsersModel.FK_Friends_users1" FromRole="Friends" ToRole="users1" />
+          <Property Name="idUser" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_Friends_users1">
+          <End Type="DbUsersModel.users1" Role="users1" Multiplicity="0..1" />
+          <End Type="DbUsersModel.Friends" Role="Friends" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Friends">
+              <PropertyRef Name="idFriends" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -261,6 +315,7 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
           <EntitySetMapping Name="users1">
             <EntityTypeMapping TypeName="DbUsersModel.users1">
               <MappingFragment StoreEntitySet="users1">
+                <ScalarProperty Name="idFriends" ColumnName="idFriends" />
                 <ScalarProperty Name="login_flag" ColumnName="login_flag" />
                 <ScalarProperty Name="data_urodzenia" ColumnName="data_urodzenia" />
                 <ScalarProperty Name="haslo" ColumnName="haslo" />
@@ -323,6 +378,15 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
                 <ScalarProperty Name="content" ColumnName="content" />
                 <ScalarProperty Name="createDate" ColumnName="createDate" />
                 <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Friends">
+            <EntityTypeMapping TypeName="DbUsersModel.Friends">
+              <MappingFragment StoreEntitySet="Friends">
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="idFriends" ColumnName="idFriends" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
