@@ -1,8 +1,8 @@
 ﻿@model WebApplicationPwsz.Models.Models.MainPageViewModel
 
 <div>
-    @Html.RenderPartial("Posts", Model.post)
+    @{Html.RenderPartial("Posts", Model.post);}
 </div>
 <div>
-
+    @{Html.RenderPartial("FrendsListPage", Model.Frends);}
 </div>

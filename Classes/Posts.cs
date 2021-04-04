@@ -44,7 +44,7 @@ namespace WebApplicationPwsz.Classes
         }
         public void AddFriends(int idFriends)
         {
-            db.Friends.Add(new Friends { idFriends = idFriends, idUser = SessionUser.id });
+            db.Friends.Add(new Friends { idFriends = idFriends, idUser = SessionUser.id ,id=1});
             db.SaveChanges();
         }
         public List<Frends> GetFriends(int idUser)
@@ -110,9 +110,9 @@ namespace WebApplicationPwsz.Classes
         public int? wiek { get; set; }
         public string miejscowosc { get; set; }
         public string FullName { get {
-                return this.nazwisko + " " + this.imie; } } 
+                return this.nazwisko + " " + this.imie; } }
         public string FullNameRevers { get {
-                return this.imie + " " + this.nazwisko ; } }
+                return this.imie + " " + this.nazwisko; } }
         public bool? plec { get; set; }
         public bool isActive { get; set; }
         public string login { get; set; }
@@ -120,6 +120,7 @@ namespace WebApplicationPwsz.Classes
         public string haslo { get; set; }
         public System.DateTime? data_urodzenia { get; set; }
         public bool? login_flag { get; set; }
+        public byte[] imageData { get; set; }
         public Frends(Friends friends)
         {
             id = friends.id;

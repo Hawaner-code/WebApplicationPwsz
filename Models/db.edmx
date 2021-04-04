@@ -108,18 +108,6 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Friends_users1">
-          <End Role="users1" Type="Self.users1" Multiplicity="0..1" />
-          <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users1">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Friends">
-              <PropertyRef Name="idFriends" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DbUsersModelStoreContainer">
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Friends" EntityType="Self.Friends" Schema="dbo" store:Type="Tables" />
@@ -145,10 +133,6 @@ warning 6002: The table/view 'DbUsers.dbo.users' does not have a primary key def
           <AssociationSet Name="FK_Comments_Post1" Association="Self.FK_Comments_Post1">
             <End Role="Post" EntitySet="Post" />
             <End Role="Comments" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Friends_users1" Association="Self.FK_Friends_users1">
-            <End Role="users1" EntitySet="users1" />
-            <End Role="Friends" EntitySet="Friends" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>

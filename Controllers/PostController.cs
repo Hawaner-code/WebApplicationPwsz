@@ -7,6 +7,7 @@ using WebApplicationPwsz.Models;
 using WebApplicationPwsz.Models.Models;
 using System.Data.Entity;
 using WebApplicationPwsz.Classes;
+using System.IO;
 
 namespace WebApplicationPwsz.Controllers
 {
@@ -20,8 +21,19 @@ namespace WebApplicationPwsz.Controllers
                 Posts posts = new Posts();
             posts.SessionUser=(users1)Session["Users"];
                 Session["TopBar"] = 2;
+                posts.AddFriends(2);
                 return View(posts.GetPosts());
             }
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult GetFile()
+        {
+            // No need to dispose the stream, MVC does it for you
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", "myimage.png");
+            FileStream stream = new FileStream(path, FileMode.Open);
+            FileStreamResult result = new FileStreamResult(stream, "image/png");
+            result.FileDownloadName = "image.png";
+            return result;
         }
         public ActionResult Like(int idPost)
         {
